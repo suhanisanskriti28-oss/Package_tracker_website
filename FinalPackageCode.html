@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Tracker</title>
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #111;
+            color: #eee;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        
+        .page {
+            display: none;
+            height: 100vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+            filter: blur(60px);
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        .shape1 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #00f5ff, #0077ff);
+            top: -60px;
+            left: -80px;
+        }
+
+        .shape2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #ff00c8, #ff0077);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #ffe600, #ff8c00);
+            top: 40%;
+            left: -120px;
+            animation-delay: 4s;
+        }
+
+        .shape4 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #b500ff, #6a00ff);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                transform: translateY(-40px) scale(1.1);
+            }
+        }
+
+        .login-box {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .login-box h1 {
+            font-family: 'Lobster Two', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .login-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 18px 36px;
+            /* bigger */
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #00f5ff, #ff00c8, #ffe600, #6a00ff);
+            background-size: 300% 300%;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            animation: gradientShift 6s infinite linear;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.07);
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ========== TRACKER PAGE ========== */
+        .tracker {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 40px;
+            /* more padding */
+            max-width: 1200px;
+            /* wider */
+            width: 95%;
+            min-height: 85vh;
+            /* taller */
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tracker h1 {
+            font-family: 'Lobster Two', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 10px;
+        }
+
+        nav a:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .input-row input {
+            flex: 1;
+            min-width: 300px;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            background: #2a2a2a;
+            color: #fff;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .summary {
+            background: #222;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .kv {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+
+        .k {
+            color: #aaa;
+        }
+
+        .v {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .b-ok {
+            background: #22c55e;
+            color: #fff;
+        }
+
+        .b-info {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .b-warn {
+            background: #fbbf24;
+        }
+
+        .b-err {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .timeline {
+            margin-top: 24px;
+        }
+
+        .event {
+            background: #1f1f1f;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .event-time {
+            font-size: 0.95rem;
+            color: #aaa;
+        }
+
+        .event-meta {
+            font-size: 1.05rem;
+            margin-top: 6px;
+        }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 36px 0;
+        }
+
+        .progress-container::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #333;
+            z-index: 1;
+        }
+
+        .progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 5px;
+            background: #2563eb;
+            z-index: 2;
+            transition: width 0.3s ease;
+        }
+
+        .circle {
+            width: 22px;
+            height: 22px;
+            background: #333;
+            border-radius: 50%;
+            z-index: 3;
+            position: relative;
+        }
+
+        .circle.active {
+            background: #2563eb;
+        }
+
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 36px;
+            text-align: center;
+        }
+
+        footer a {
+            margin: 0 12px;
+            color: #aaa;
+            font-size: 1.4rem;
+        }
+
+        footer a:hover {
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+    <section class="page active" id="loginPage">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
+
+        <div class="login-box">
+            <h1>📦 Where is my parcel?</h1>
+            <button class="login-btn" onclick="goToTracker()">Track My Parcel</button>
+        </div>
+    </section>
+
+    <!-- TRACKER PAGE -->
+    <section class="page" id="trackerPage">
+        <main class="tracker">
+            <h1>📦 Package Tracker 📦</h1>
+            <nav>
+                <a href="#">History</a>
+                <a href="#">Contacts</a>
+                <a href="#">Feedback</a>
+            </nav>
+            <div class="input-row">
+                <input id="trackingNumber" type="text" placeholder="Enter tracking number">
+                <button class="btn" id="trackBtn">Track</button>
+            </div>
+            <div id="result"></div>
+            <footer>
+                <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            </footer>
+        </main>
+    </section>
+
+    <script>
+        function goToTracker() {
+            document.getElementById("loginPage").classList.remove("active");
+            document.getElementById("trackerPage").classList.add("active");
+        }
+
+        const mockData = {
+            "SANS123": {
+                trackingNumber: "ABC123",
+                recipient: "Snikitha Chittneni",
+                sender: "Amazon",
+                from: "Dispur , INDIA",
+                to: "Bangalore, INDIA",
+                courier: "DTDC",
+                destination: "INDIA",
+                status: "In Transit",
+                estimatedDelivery: "Aug 30, 2025",
+                history: [
+                    { date: "Aug 21, 2025 10:00", location: "Guwahati, Assam", status: "Shipped" },
+                    { date: "Aug 22, 2025 14:30", location: "Kolkata, West Bengal", status: "In Transit" },
+                    { date: "Aug 23, 2025 09:15", location: "Bangalore, Karnataka", status: "In Transit" },
+                ]
+            }
+        };
+
+        const $ = (s) => document.querySelector(s);
+
+        function statusClass(s) {
+            s = s.toLowerCase();
+            if (s.includes("delivered")) return "b-ok";
+            if (s.includes("transit")) return "b-info";
+            if (s.includes("pending")) return "b-warn";
+            if (s.includes("exception")) return "b-err";
+            return "b-info";
+        }
+
+        function render(pkg) {
+            const summary = `
+        <section class="summary">
+          <div class="kv"><div class="k">Tracking #</div><div class="v">${pkg.trackingNumber}</div></div>
+          <div class="kv"><div class="k">Recipient</div><div class="v">${pkg.recipient}</div></div>
+          <div class="kv"><div class="k">From</div><div class="v">${pkg.from}</div></div>
+          <div class="kv"><div class="k">To</div><div class="v">${pkg.to}</div></div>
+          <div class="kv"><div class="k">Courier</div><div class="v">${pkg.courier}</div></div>
+          <div class="kv"><div class="k">Delivery</div><div class="v">${pkg.estimatedDelivery}</div></div>
+          <div class="kv"><div class="k">Status</div><div class="v"><span class="badge ${statusClass(pkg.status)}">${pkg.status}</span></div></div>
+        </section>`;
+
+            const totalSteps = pkg.history.length;
+            const completedSteps = pkg.history.filter(ev => ev.status.toLowerCase() !== "pending").length;
+            const progressPercent = ((completedSteps - 1) / (totalSteps - 1)) * 100;
+
+            const progressBar = `
+        <div class="progress-container">
+          <div class="progress" style="width:${progressPercent}%"></div>
+          ${pkg.history.map((_, i) => `
+            <div class="circle ${i < completedSteps ? 'active' : ''}"></div>
+          `).join("")}
+        </div>`;
+
+            const history = `
+        <section class="timeline">
+          ${pkg.history.map(ev => `
+            <div class="event">
+              <div class="event-time">${ev.date}</div>
+              <div class="event-meta">${ev.location} — ${ev.status}</div>
+            </div>`).join("")}
+        </section>`;
+
+            $("#result").innerHTML = summary + progressBar + history;
+        }
+
+        function trackPackage() {
+            const num = $("#trackingNumber").value.trim();
+            if (!num) { $("#result").innerHTML = "<p class='error'>Enter a tracking number.</p>"; return; }
+            const pkg = mockData[num];
+            if (!pkg) { $("#result").innerHTML = "<p class='error'>Tracking number not found.</p>"; return; }
+            render(pkg);
+        }
+
+        $("#trackBtn").addEventListener("click", trackPackage);
+        $("#trackingNumber").addEventListener("keydown", e => { if (e.key === "Enter") trackPackage(); });
+    </script>
+</body>
+
+</html>
